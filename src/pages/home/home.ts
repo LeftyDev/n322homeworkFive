@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {DataProvider} from "../../providers/data/data";
+import {InfoPage} from "../info/info";
 
 @Component({
   selector: 'page-home',
@@ -7,41 +9,18 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  lists = [
-    {
-      listName: "Bands",
-      listItems: [
-        {
-          item: "Band 1",
-          info: {
-            albums: "7"
-          }
-        },
-        {
-          item: "American Football",
-          info: {
-            albums: "4"
-          }
-        },
-        {
-          item: "Band 3",
-          info: {
-            albums: "10"
-          }
-        },
-      ]
-    }
-  ];
+  lists: any;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public dataService: DataProvider) {
   }
 
 
   ionViewDidLoad() {
+    this.lists = this.dataService.lists;
   }
 
   itemClicked(item): void {
-    console.log(item.info);
+    this.navCtrl.push(InfoPage, item);
   }
 
 }
